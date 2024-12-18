@@ -1,4 +1,4 @@
-import SearchForm from "../islands/SerchForm.tsx";
+import SearchForm from "../islands/SearchForm.tsx";
 
 export default function HomePage() {
   return (
