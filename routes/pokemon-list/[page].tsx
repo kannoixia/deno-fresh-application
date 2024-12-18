@@ -17,7 +17,7 @@ interface PokemonList {
 export const handler: Handlers = {
   async GET(_, ctx) {
     const { page } = ctx.params;
-    const apiBaseUrl = Deno.env.get("API_BASE_URL") || "http://localhost:8000";
+    const apiBaseUrl = Deno.env.get("API_BASE_URL") || "https://deno-fresh-pokemon-app.deno.dev";
     const response = await fetch(`${apiBaseUrl}/api/pokemon-list/${page}`);
     if (!response.ok) {
       return ctx.render(null);

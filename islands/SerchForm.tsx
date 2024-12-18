@@ -9,7 +9,7 @@ export default function SearchForm() {
   };
 
   const randomSearch = () => {
-    const randomNo = Math.floor(Math.random() * 1025) + 1;
+    const randomNo = Math.floor(Math.random() * parseInt(Deno.env.get("MAX_POKE_NUM") || "1025"))  + 1;
     globalThis.location.href = `/pokemon/${randomNo}`;
   };
 
