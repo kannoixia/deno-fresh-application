@@ -35,20 +35,16 @@ const typeMap: { [key: string]: string } = {
 export const handler: Handlers = {
   async GET(_, ctx) {
     const { id } = ctx.params;
-    const apiBaseUrl = Deno.env.get("API_BASE_URL") || "https://deno-fresh-pokemon-app.deno.dev";
+    const apiBaseUrl = Deno.env.get("API_BASE_URL") || "http://localhost:8000";
     const response = await fetch(`${apiBaseUrl}/api/pokemon/${id}`);
-    console.log("apiBaseURL:", apiBaseUrl)
-    console.log("response:", response)
     if (!response.ok) {
       return ctx.render(null);
     }
     const data: PokemonData = await response.json();
     data.id = id;
-    console.log("id:",id)
     return ctx.render(data);
   },
 };
-
 
 export default function PokemonPage({ data }: PageProps<PokemonData>) {
 

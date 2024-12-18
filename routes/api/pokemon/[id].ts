@@ -100,8 +100,8 @@ export const handler: Handlers = {
         {
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*", // 全てのオリジンを許可
-            "Access-Control-Allow-Methods": "GET, OPTIONS", // 許可するHTTPメソッド
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
           },
         }
       );

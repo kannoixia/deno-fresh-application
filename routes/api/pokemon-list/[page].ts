@@ -68,7 +68,13 @@ export const handler: Handlers = {
           previous: responseData.previous,
           results: filteredResults,
         }),
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, OPTIONS",
+          },
+        }
       );
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
