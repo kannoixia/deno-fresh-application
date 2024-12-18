@@ -1,9 +1,9 @@
 name: Deploy
 on:
   push:
-    branches: feature/poke-pictorial-application
+    branches: main
   pull_request:
-    branches: feature/poke-pictorial-application
+    branches: main
 
 jobs:
   deploy:
