@@ -1,3 +1,215 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ベーススタイル */
+body {
+  font-family: 'Pokemon Solid', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #f6d365, #fda085);
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #0075BE; /* ポケモンのテーマブルー */
+  text-shadow: 2px 2px #FFDE00; /* ポケモンイエロー */
+}
+
+h1.pokemon-id {
+  font-size: 1.5rem; /* 図鑑No.のフォントサイズを小さく */
+  color: #333; /* 図鑑No.の文字色（通常の色） */
+  text-shadow: none; /* 図鑑No.に影は不要 */
+  margin-bottom: -0.5rem; /* ポケモン名との間隔を詰める */
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+/* コンテナスタイル */
+.container {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  gap: 20px;
+}
+
+/* ボタンスタイル */
+button, a {
+  display: inline-block;
+  background: #0075BE;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin: 10px;
+}
+
+button:hover, a:hover {
+  background: #005BB5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 画像スタイル */
+.pokemon-image {
+  max-width: 300px;
+  height: auto;
+  margin: 20px auto;
+  display: block;
+  border: 3px solid #0075BE;
+  border-radius: 12px;
+  background: #FFDE00;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pokemon-list-image {
+  width: 64px;
+  height: 64px;
+  border: 2px solid #0075BE;
+  border-radius: 8px;
+  background: #FFDE00;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  margin: 5px auto;
+}
+
+.search-form{
+  gap: 20px;
+}
+
+.search-form input[type="number"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #0075BE;
+  border-radius: 8px;
+  width: 200px;
+  margin-right: 20px;
+}
+
+.search-form input[type="number"]:focus {
+  outline: none;
+  border-color: #FFDE00;
+  box-shadow: 0 0 8px #FFDE00;
+}
+
+.search-form button {
+  margin-right: 20px;
+}
+
+/* タイプタグスタイル */
+.type {
+  display: inline-block;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.type-grass { background-color: #78C850; }
+.type-fire { background-color: #F08030; }
+.type-water { background-color: #6890F0; }
+.type-electric { background-color: #F8D030; }
+.type-ice { background-color: #98D8D8; }
+.type-fighting { background-color: #C03028; }
+.type-poison { background-color: #A040A0; }
+.type-ground { background-color: #E0C068; }
+.type-flying { background-color: #A890F0; }
+.type-psychic { background-color: #F85888; }
+.type-bug { background-color: #A8B820; }
+.type-rock { background-color: #B8A038; }
+.type-ghost { background-color: #705898; }
+.type-dark { background-color: #705848; }
+.type-dragon { background-color: #7038F8; }
+.type-steel { background-color: #B8B8D0; }
+.type-fairy { background-color: #EE99AC; }
+.type-normal { background-color: #aeaeae; } 
+
+.pokeball {
+  display: block;
+  margin: 20px auto;
+  width: var(--pokeball-size, 300px);
+  height: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+thead {
+  background: #0075BE;
+  color: white;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+tbody td {
+  padding: 10px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+tbody a.pokemon-link {
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+tbody a.pokemon-link:hover {
+  color: #FFDE00;
+  text-shadow: 1px 1px #0075BE;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  padding: 10px 20px;
+  background: #FFDE00;
+  color: #333;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+  background: #FFA500;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
