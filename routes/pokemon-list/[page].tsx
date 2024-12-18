@@ -19,6 +19,7 @@ export const handler: Handlers = {
     const { page } = ctx.params;
     const apiBaseUrl = Deno.env.get("API_BASE_URL") || "http://localhost:8000";
     const response = await fetch(`${apiBaseUrl}/api/pokemon-list/${page}`);
+    console.log("response-pokemon-list", response);
     if (!response.ok) {
       return ctx.render(null);
     }
