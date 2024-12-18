@@ -4,6 +4,7 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $api_pokemon_list_page_ from "./routes/api/pokemon-list/[page].ts";
 import * as $api_pokemon_id_ from "./routes/api/pokemon/[id].ts";
 import * as $index from "./routes/index.tsx";
 import * as $pokemon_list_page_ from "./routes/pokemon-list/[page].tsx";
@@ -15,6 +16,7 @@ const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/api/pokemon-list/[page].ts": $api_pokemon_list_page_,
     "./routes/api/pokemon/[id].ts": $api_pokemon_id_,
     "./routes/index.tsx": $index,
     "./routes/pokemon-list/[page].tsx": $pokemon_list_page_,
