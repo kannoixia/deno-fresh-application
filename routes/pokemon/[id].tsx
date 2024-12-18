@@ -36,6 +36,7 @@ export const handler: Handlers = {
   async GET(_, ctx) {
     const { id } = ctx.params;
     const apiBaseUrl = Deno.env.get("API_BASE_URL") || "http://localhost:8000";
+    console.log("apiBaseUrl:",apiBaseUrl);
     const response = await fetch(`${apiBaseUrl}/api/pokemon/${id}`);
     if (!response.ok) {
       return ctx.render(null);
