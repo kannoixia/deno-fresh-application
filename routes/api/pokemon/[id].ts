@@ -89,7 +89,6 @@ export const handler: Handlers = {
         }
       }
 
-
       return new Response(
         JSON.stringify({
           name: japaneseName,
@@ -98,7 +97,13 @@ export const handler: Handlers = {
           genus,
           description: flavorText,
         }),
-        { headers: { "Content-Type": "application/json" } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*", // 全てのオリジンを許可
+            "Access-Control-Allow-Methods": "GET, OPTIONS", // 許可するHTTPメソッド
+          },
+        }
       );
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
