@@ -11,68 +11,26 @@ interface PokemonList {
   next: string | null;
   previous: string | null;
   results: PokemonSummary[];
-}
-
-interface PokemonPageProps {
-  data: PokemonList;
   page: number;
 }
 
-interface Name {
-  language: Language;
-  name: string;
-}
-
-interface Language {
-  name: string;
-  url: string;
-}
-
-export const handler: Handlers<PokemonPageProps> = {
+export const handler: Handlers = {
   async GET(_, ctx) {
-    const page = parseInt(ctx.params.page || "1");
-    const limit = 100;
-    const offset = (page - 1) * limit;
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+    const { page } = ctx.params;
+    const apiBaseUrl = Deno.env.get("API_BASE_URL") || "http://localhost:8000";
+    const response = await fetch(`${apiBaseUrl}/api/pokemon-list/${page}`);
     if (!response.ok) {
-      return ctx.render({ data: { count: 0, next: null, previous: null, results: [] }, page });
+      return ctx.render(null);
     }
-    const responseData = await response.json();
-    const transformedResults = await Promise.all(
-      responseData.results.map(async (pokemon: { url: string }) => {
-        const id = parseInt(pokemon.url.split("/")[6]);
-
-        // idが10000を超える場合はスキップ
-        if (id > 10000) {
-          return null;
-        }
-        const speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-        if (!speciesRes.ok) throw new Error("Species not found");
-        const speciesData = await speciesRes.json();
-        const japaneseName = speciesData.names.find(
-          (v: Name) => v.language.name === "ja"
-        )?.name;
-
-        return { name: japaneseName || "不明", id };
-      })
-    );
-
-    const filteredResults = transformedResults.filter(result => result !== null);
-
-    const data: PokemonList = {
-      count: responseData.count,
-      next: responseData.next,
-      previous: responseData.previous,
-      results: filteredResults,
-    };
-
-    return ctx.render({ data, page });
+    const data: PokemonList = await response.json();
+    data.page = parseInt(page);
+    return ctx.render(data);
   },
 };
 
-export default function PokemonListPage({ data }: PageProps<PokemonPageProps>) {
+export default function PokemonListPage({ data }: PageProps<PokemonList>) {
   const firstPokemonIndex = (data.page - 1) * 100 + 1;
-  const lastPokemonIndex = Math.min(data.page * 100, data.data.count);
+  const lastPokemonIndex = Math.min(data.page * 100, parseInt(Deno.env.get("MAX_POKE_NUM") || "1025"));
 
   return (
     <div class="container">
@@ -80,16 +38,16 @@ export default function PokemonListPage({ data }: PageProps<PokemonPageProps>) {
       <div class="pagination">
         <a
           href={`/pokemon-list/${data.page - 1}`}
-          class={`button ${!data.data.previous ? "disabled" : ""}`}
-          aria-disabled={!data.data.previous ? "true" : "false"}
+          class={`button ${!data.previous ? "disabled" : ""}`}
+          aria-disabled={!data.previous ? "true" : "false"}
         >
           前のページ
         </a>
         <a href="/" class="button">トップ画面に戻る</a>
         <a
           href={`/pokemon-list/${data.page + 1}`}
-          class={`button ${!data.data.next ? "disabled" : ""}`}
-          aria-disabled={!data.data.next ? "true" : "false"}
+          class={`button ${!data.next ? "disabled" : ""}`}
+          aria-disabled={!data.next ? "true" : "false"}
         >
           次のページ
         </a>
@@ -106,7 +64,7 @@ export default function PokemonListPage({ data }: PageProps<PokemonPageProps>) {
           </tr>
         </thead>
         <tbody>
-          {data.data.results.map((pokemon) => (
+          {data.results.map((pokemon) => (
             <tr key={pokemon.id}>
               <td>{pokemon.id}</td>
               <td>
